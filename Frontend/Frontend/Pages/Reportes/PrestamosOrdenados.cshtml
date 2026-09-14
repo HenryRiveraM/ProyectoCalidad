@@ -1,0 +1,250 @@
+@page "/Reportes/PrestamosOrdenados"
+@model Frontend.Pages.Reportes.PrestamosOrdenadosModel
+
+@{
+    ViewData["Title"] = "Préstamos ordenados";
+
+    var totalRegistros = Model.Reporte.Count;
+    var totalActivos = Model.Reporte.Count(x => x.EstadoTexto == "Activo");
+    var totalDevueltos = Model.Reporte.Count(x => x.EstadoTexto == "Devuelto");
+    var totalAnulados = Model.Reporte.Count(x => x.EstadoTexto == "Anulado");
+    var periodoInicio = Model.FechaInicio?.ToString("dd/MM/yyyy") ?? "Todos";
+    var periodoFin = Model.FechaFin?.ToString("dd/MM/yyyy") ?? "Todos";
+    var estadoActual = string.IsNullOrWhiteSpace(Model.EstadoFiltro) ? "Todos" : Model.EstadoFiltro;
+    var excelRows = System.Text.Json.JsonSerializer.Serialize(Model.Reporte.Select(item => new object[]
+    {
+        item.FechaPrestamo.ToString("dd/MM/yyyy HH:mm"),
+        item.NombreLector,
+        item.TituloLibro,
+        item.CodigoInventario,
+        item.FechaDevolucionEsperada.ToString("dd/MM/yyyy"),
+        item.FechaDevolucionReal.HasValue ? item.FechaDevolucionReal.Value.ToString("dd/MM/yyyy HH:mm") : "Pendiente",
+        item.EstadoTexto
+    }));
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/reportes.css" />
+}
+
+<div class="report-page">
+    <div class="report-shell">
+        <header class="report-header">
+            <div class="report-title-group">
+                <div class="report-icon-shell">
+                    <img src="~/assets/icons/library_books_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+                         class="report-icon"
+                         alt="Préstamos ordenados" />
+                </div>
+                <div>
+                    <p class="report-kicker">Reportes</p>
+                    <h1>Préstamos ordenados</h1>
+                    <p class="report-subtitle">
+                        Filtra, revisa y exporta el historial de préstamos por fecha, lector, libro y estado.
+                    </p>
+                </div>
+            </div>
+        </header>
+
+        <section class="report-summary report-summary-four" aria-label="Resumen del reporte">
+            <article class="summary-card">
+                <span class="summary-label">Registros encontrados</span>
+                <strong>@totalRegistros</strong>
+            </article>
+            <article class="summary-card">
+                <span class="summary-label">Activos</span>
+                <strong>@totalActivos</strong>
+            </article>
+            <article class="summary-card">
+                <span class="summary-label">Devueltos</span>
+                <strong>@totalDevueltos</strong>
+            </article>
+            <article class="summary-card">
+                <span class="summary-label">Anulados</span>
+                <strong>@totalAnulados</strong>
+            </article>
+        </section>
+
+        <section class="report-controls" aria-label="Filtros y acciones del reporte">
+            <form method="get" class="report-filter-form report-filter-form-wide">
+                <div class="field-group">
+                    <label for="FechaInicio">Fecha de inicio</label>
+                    <input id="FechaInicio" type="date" asp-for="FechaInicio" class="report-input" />
+                </div>
+
+                <div class="field-group">
+                    <label for="FechaFin">Fecha de fin</label>
+                    <input id="FechaFin" type="date" asp-for="FechaFin" class="report-input" />
+                </div>
+
+                <div class="field-group">
+                    <label for="EstadoFiltro">Estado</label>
+                    <select id="EstadoFiltro" asp-for="EstadoFiltro" class="report-input">
+                        <option value="">Todos</option>
+                        <option value="Activo">Activo</option>
+                        <option value="Devuelto">Devuelto</option>
+                        <option value="Anulado">Anulado</option>
+                    </select>
+                </div>
+
+                <div class="report-actions">
+                    <button type="submit" class="report-btn report-btn-primary">
+                        <img src="~/assets/icons/bar_chart_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+                             alt=""
+                             aria-hidden="true" />
+                        Generar reporte
+                    </button>
+                    <button type="button"
+                            class="report-btn report-btn-secondary"
+                            onclick="descargarPDF()"
+                            @(Model.Reporte.Count == 0 ? "disabled" : null)>
+                        Descargar PDF
+                    </button>
+                    <button type="button"
+                            class="report-btn report-btn-secondary"
+                            onclick="descargarExcel()"
+                            @(Model.Reporte.Count == 0 ? "disabled" : null)>
+                        Descargar Excel
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <section id="reporte-container" class="report-output">
+            <div class="export-header">
+                <div>
+                    <p>StarBook Library</p>
+                    <h2>Reporte de préstamos ordenados</h2>
+                </div>
+                <img src="~/assets/images/blackLogoR.png" alt="StarBook Library" />
+            </div>
+
+            <div class="report-period">
+                <span><strong>Fecha de inicio:</strong> @periodoInicio</span>
+                <span><strong>Fecha de fin:</strong> @periodoFin</span>
+                <span><strong>Estado:</strong> @estadoActual</span>
+            </div>
+
+            @if (Model.Reporte.Count == 0)
+            {
+                <div class="report-empty">
+                    <strong>No hay préstamos con los filtros seleccionados.</strong>
+                    <span>Ajusta las fechas o el estado para generar el reporte.</span>
+                </div>
+            }
+            else
+            {
+                <div class="report-table-panel report-table-panel-full">
+                    <div class="section-heading">
+                        <h2>Historial de préstamos</h2>
+                        <span>@totalRegistros registro@(totalRegistros == 1 ? "" : "s")</span>
+                    </div>
+
+                    <div class="report-table-wrapper">
+                        <table class="report-table report-table-wide">
+                            <thead>
+                                <tr>
+                                    <th>Fecha de préstamo</th>
+                                    <th>Lector</th>
+                                    <th>Libro</th>
+                                    <th>Código ejemplar</th>
+                                    <th>Fecha esperada</th>
+                                    <th>Devolución real</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Reporte)
+                                {
+                                    var estadoClase = item.EstadoTexto.ToLowerInvariant();
+                                    <tr>
+                                        <td>@item.FechaPrestamo.ToString("dd/MM/yyyy HH:mm")</td>
+                                        <td>@item.NombreLector</td>
+                                        <td>@item.TituloLibro</td>
+                                        <td>@item.CodigoInventario</td>
+                                        <td>@item.FechaDevolucionEsperada.ToString("dd/MM/yyyy")</td>
+                                        <td>@(item.FechaDevolucionReal.HasValue ? item.FechaDevolucionReal.Value.ToString("dd/MM/yyyy HH:mm") : "Pendiente")</td>
+                                        <td>
+                                            <span class="status-pill status-@estadoClase">@item.EstadoTexto</span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <footer class="report-totals">
+                        <span>Total de registros: <strong>@totalRegistros</strong></span>
+                        <span>Total activos: <strong>@totalActivos</strong></span>
+                        <span>Total devueltos: <strong>@totalDevueltos</strong></span>
+                        <span>Total anulados: <strong>@totalAnulados</strong></span>
+                    </footer>
+
+                    <section class="report-generated-at">
+                        <span><strong>Fecha:</strong> @DateTime.Now.ToString("dd/MM/yyyy")</span>
+                        <span><strong>Hora:</strong> @DateTime.Now.ToString("HH:mm")</span>
+                    </section>
+                </div>
+            }
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <script>
+        const excelRows = @Html.Raw(excelRows);
+
+        async function descargarPDF() {
+            if (!excelRows.length) return;
+
+            const { jsPDF } = window.jspdf;
+            const elemento = document.getElementById('reporte-container');
+
+            const canvas = await html2canvas(elemento, {
+                scale: 2,
+                backgroundColor: '#ffffff',
+                useCORS: true,
+                onclone: function (documento) {
+                    documento.body.classList.add('exporting-report');
+                }
+            });
+
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('l', 'mm', 'a4');
+            const margen = 10;
+            const anchoPdf = 297 - (margen * 2);
+            const altoPdf = (canvas.height * anchoPdf) / canvas.width;
+
+            pdf.addImage(imgData, 'PNG', margen, margen, anchoPdf, altoPdf);
+            pdf.save('PrestamosOrdenados.pdf');
+        }
+
+        function descargarExcel() {
+            if (!excelRows.length) return;
+
+            const datos = [
+                ['Fecha de préstamo', 'Lector', 'Libro', 'Código ejemplar', 'Fecha esperada', 'Devolución real', 'Estado'],
+                ...excelRows
+            ];
+
+            const hoja = XLSX.utils.aoa_to_sheet(datos);
+            hoja['!cols'] = [
+                { wch: 22 },
+                { wch: 35 },
+                { wch: 40 },
+                { wch: 20 },
+                { wch: 18 },
+                { wch: 24 },
+                { wch: 15 }
+            ];
+
+            const libro = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(libro, hoja, 'Préstamos ordenados');
+            XLSX.writeFile(libro, 'PrestamosOrdenados.xlsx');
+        }
+    </script>
+}

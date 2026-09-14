@@ -1,0 +1,63 @@
+{
+  "version": 2,
+  "dgSpecHash": "ccThifh8bk4=",
+  "success": true,
+  "projectFilePath": "/Users/henryriveramendez/Documents/GestionBiblioteca/Microservicio_Multas/Microservicio_Multas/Microservicio_Multas.csproj",
+  "expectedPackageFiles": [
+    "/Users/henryriveramendez/.nuget/packages/dnsclient/1.6.1/dnsclient.1.6.1.nupkg.sha512",
+    "/Users/henryriveramendez/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/10.0.5/microsoft.aspnetcore.authentication.jwtbearer.10.0.5.nupkg.sha512",
+    "/Users/henryriveramendez/.nuget/packages/microsoft.aspnetcore.openapi/10.0.5/microsoft.aspnetcore.openapi.10.0.5.nupkg.sha512",
+    "/Users/henryriveramendez/.nuget/packages/microsoft.identitymodel.abstractions/8.0.1/microsoft.identitymodel.abstractions.8.0.1.nupkg.sha512",
+    "/Users/henryriveramendez/.nuget/packages/microsoft.identitymodel.jsonwebtokens/8.0.1/microsoft.identitymodel.jsonwebtokens.8.0.1.nupkg.sha512",
+    "/Users/henryriveramendez/.nuget/packages/microsoft.identitymodel.logging/8.0.1/microsoft.identitymodel.logging.8.0.1.nupkg.sha512",
+    "/Users/henryriveramendez/.nuget/packages/microsoft.identitymodel.protocols/8.0.1/microsoft.identitymodel.protocols.8.0.1.nupkg.sha512",
+    "/Users/henryriveramendez/.nuget/packages/microsoft.identitymodel.protocols.openidconnect/8.0.1/microsoft.identitymodel.protocols.openidconnect.8.0.1.nupkg.sha512",
+    "/Users/henryriveramendez/.nuget/packages/microsoft.identitymodel.tokens/8.0.1/microsoft.identitymodel.tokens.8.0.1.nupkg.sha512",
+    "/Users/henryriveramendez/.nuget/packages/microsoft.openapi/2.0.0/microsoft.openapi.2.0.0.nupkg.sha512",
+    "/Users/henryriveramendez/.nuget/packages/mongodb.bson/3.1.0/mongodb.bson.3.1.0.nupkg.sha512",
+    "/Users/henryriveramendez/.nuget/packages/mongodb.driver/3.1.0/mongodb.driver.3.1.0.nupkg.sha512",
+    "/Users/henryriveramendez/.nuget/packages/scalar.aspnetcore/1.2.56/scalar.aspnetcore.1.2.56.nupkg.sha512",
+    "/Users/henryriveramendez/.nuget/packages/sharpcompress/0.30.1/sharpcompress.0.30.1.nupkg.sha512",
+    "/Users/henryriveramendez/.nuget/packages/snappier/1.0.0/snappier.1.0.0.nupkg.sha512",
+    "/Users/henryriveramendez/.nuget/packages/system.identitymodel.tokens.jwt/8.0.1/system.identitymodel.tokens.jwt.8.0.1.nupkg.sha512",
+    "/Users/henryriveramendez/.nuget/packages/zstdsharp.port/0.7.3/zstdsharp.port.0.7.3.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "El paquete \"Microsoft.OpenApi\" 2.0.0 tiene una vulnerabilidad de gravedad alta conocida, https://github.com/advisories/GHSA-v5pm-xwqc-g5wc",
+      "projectPath": "/Users/henryriveramendez/Documents/GestionBiblioteca/Microservicio_Multas/Microservicio_Multas/Microservicio_Multas.csproj",
+      "warningLevel": 1,
+      "filePath": "/Users/henryriveramendez/Documents/GestionBiblioteca/Microservicio_Multas/Microservicio_Multas/Microservicio_Multas.csproj",
+      "libraryId": "Microsoft.OpenApi",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "message": "El paquete \"SharpCompress\" 0.30.1 tiene una vulnerabilidad de gravedad moderada conocida, https://github.com/advisories/GHSA-6c8g-7p36-r338",
+      "projectPath": "/Users/henryriveramendez/Documents/GestionBiblioteca/Microservicio_Multas/Microservicio_Multas/Microservicio_Multas.csproj",
+      "warningLevel": 1,
+      "filePath": "/Users/henryriveramendez/Documents/GestionBiblioteca/Microservicio_Multas/Microservicio_Multas/Microservicio_Multas.csproj",
+      "libraryId": "SharpCompress",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "El paquete \"Snappier\" 1.0.0 tiene una vulnerabilidad de gravedad alta conocida, https://github.com/advisories/GHSA-pggp-6c3x-2xmx",
+      "projectPath": "/Users/henryriveramendez/Documents/GestionBiblioteca/Microservicio_Multas/Microservicio_Multas/Microservicio_Multas.csproj",
+      "warningLevel": 1,
+      "filePath": "/Users/henryriveramendez/Documents/GestionBiblioteca/Microservicio_Multas/Microservicio_Multas/Microservicio_Multas.csproj",
+      "libraryId": "Snappier",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
+}
