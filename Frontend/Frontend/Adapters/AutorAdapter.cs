@@ -217,7 +217,7 @@ public class AutorAdapter : IAutorServicio
         if (string.IsNullOrWhiteSpace(texto))
             return string.Empty;
 
-        return Regex.Replace(texto, @"(?<=[a-záéíóúñü])(?=[A-ZÁÉÍÓÚÑÜ])", " ");
+        return Regex.Replace(   texto,    @"(?<=[a-záéíóúñü])(?=[A-ZÁÉÍÓÚÑÜ])"," ",RegexOptions.None, TimeSpan.FromSeconds(1));
     }
 
     private static string FormatearNombrePropio(string value)
