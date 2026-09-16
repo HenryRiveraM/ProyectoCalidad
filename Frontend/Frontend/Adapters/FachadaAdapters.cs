@@ -26,14 +26,14 @@ public class PrestamoFachadaAdapter : IPrestamoFachada
             .ToList();
     }
 
-    public Result<int> CrearPrestamoMultiple(int lectorId, IEnumerable<int> ejIds, DateTime f, int? uid = null, string? obs = null) => Result<int>.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
-    public Result<int> CrearPrestamoMultiple(int lectorId, IEnumerable<(int, string?)> d, DateTime f, int? uid = null) => Result<int>.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
-    public Result CrearPrestamo(PrestamoDto p) => Result.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
-    public Result CrearPrestamos(IEnumerable<PrestamoDto> p) => Result.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
-    public int CountPrestamosActivos(int id) => 0;
-    public PrestamoDto? ObtenerPrestamoPorId(int id) => null;
-    public EjemplarDto? ObtenerEjemplarPorId(int id) => null;
-    public string? ObtenerLabelEjemplar(int id) => null;
+    public Result<int> CrearPrestamoMultiple(int lectorId, IEnumerable<int> ejemplarIds, DateTime fechaDevolucionEsperada, int? usuarioSesionId = null, string? observacionesSalida = null) => Result<int>.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
+    public Result<int> CrearPrestamoMultiple(int lectorId, IEnumerable<(int, string?)> detallesEjemplares, DateTime fechaDevolucionEsperada, int? usuarioSesionId = null) => Result<int>.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
+    public Result CrearPrestamo(PrestamoDto PrestamoDto) => Result.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
+    public Result CrearPrestamos(IEnumerable<PrestamoDto> prestamos) => Result.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
+    public int CountPrestamosActivos(int lectorId) => 0;
+    public PrestamoDto? ObtenerPrestamoPorId(int lectorId) => null;
+    public EjemplarDto? ObtenerEjemplarPorId(int ejemplarId) => null;
+    public string? ObtenerLabelEjemplar(int ejemplarId) => null;
     
     public UsuarioDto? ObtenerUsuarioPorCi(string ci)
     {
