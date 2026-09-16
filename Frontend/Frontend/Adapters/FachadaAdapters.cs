@@ -31,11 +31,11 @@ public class PrestamoFachadaAdapter : IPrestamoFachada
     public Result CrearPrestamo(PrestamoDto PrestamoDto) => Result.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
     public Result CrearPrestamos(IEnumerable<PrestamoDto> prestamos) => Result.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
     public int CountPrestamosActivos(int lectorId) => 0;
-    public PrestamoDto? ObtenerPrestamoPorId(int lectorId) => null;
-    public EjemplarDto? ObtenerEjemplarPorId(int ejemplarId) => null;
+    public PrestamoDto? ObtenerPrestamoPorId(int id) => null;
+    public EjemplarDto? ObtenerEjemplarPorId(int id) => null;
     public string? ObtenerLabelEjemplar(int ejemplarId) => null;
-    
-    public UsuarioDto? ObtenerUsuarioPorCi(string ci)
+
+public UsuarioDto? ObtenerUsuarioPorCi(string ci)
     {
         var usuarios = _usuarioServicio.Select();
         return usuarios.FirstOrDefault(u => u.CI != null && u.CI.Equals(ci, StringComparison.OrdinalIgnoreCase));
