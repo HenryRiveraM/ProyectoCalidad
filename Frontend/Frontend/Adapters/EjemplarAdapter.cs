@@ -30,9 +30,9 @@ public class EjemplarAdapter : IEjemplarServicio
     }
     public IEnumerable<LibroDto> ObtenerLibrosActivos() =>
         (CallGet<List<LibroDto>>("api/libros") ?? new()).Where(l => l.Estado);
-    public bool ExisteLibroActivo(int id)
+    public bool ExisteLibroActivo(int libroId)
     {
-        var libro = CallGet<LibroDto>($"api/libros/{id}");
+        var libro = CallGet<LibroDto>($"api/libros/{libroId}");
         return libro != null && libro.Estado;
     }
     public Dictionary<int, string> ObtenerEjemplaresDisponibles()
@@ -53,7 +53,7 @@ public class EjemplarAdapter : IEjemplarServicio
         }
         catch { return new(); }
     }
-    public Result ValidarEjemplar(EjemplarDto e) => Result.Success();
+    public Result ValidarEjemplar(EjemplarDto EjemplarDto) => Result.Success();
 
     private T? CallGet<T>(string u) where T : class { try { EnsureAuthorizationHeader(); var r = _http.GetAsync(u).Result; r.EnsureSuccessStatusCode(); return r.Content.ReadFromJsonAsync<T>().Result; } catch { return null; } }
     private Result<EjemplarDto> CallPostR<T>(string u, object d) { try { EnsureAuthorizationHeader(); var r = _http.PostAsJsonAsync(u, d).Result; if (!r.IsSuccessStatusCode) return Result<EjemplarDto>.Failure(new Error("Post", LeerError(r))); return Result<EjemplarDto>.Success(r.Content.ReadFromJsonAsync<EjemplarDto>().Result!); } catch (Exception ex) { return Result<EjemplarDto>.Failure(new Error("Post", ex.Message)); } }
