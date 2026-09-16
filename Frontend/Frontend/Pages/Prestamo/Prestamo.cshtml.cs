@@ -20,7 +20,6 @@ public class PrestamoModel : PageModel
     private readonly IEjemplarServicio _ejemplarServicio;
     private readonly IUsuarioServicio _usuarioServicio;
     private readonly IDetalleServicio _detalleServicio;
-    private readonly RouteTokenService _routeTokenService;
 
     public List<PrestamoEntity> Prestamos { get; set; } = new();
     public List<PrestamoDetalleDTO> PrestamosDetallados { get; set; } = new();
@@ -41,14 +40,13 @@ public class PrestamoModel : PageModel
     public bool MostrarModalComprobante { get; set; }
     public int? ComprobantePrestamoId { get; set; }
 
-    public PrestamoModel(Frontend.Adapters.IPrestamoFachada prestamoFachada, IPrestamoServicio prestamoServicio, IEjemplarServicio ejemplarServicio, IUsuarioServicio usuarioServicio, IDetalleServicio detalleServicio, RouteTokenService routeTokenService, IAnulacionFachada anulacionFachada)
+    public PrestamoModel(Frontend.Adapters.IPrestamoFachada prestamoFachada, IPrestamoServicio prestamoServicio, IEjemplarServicio ejemplarServicio, IUsuarioServicio usuarioServicio, IDetalleServicio detalleServicio, IAnulacionFachada anulacionFachada)
     {
         _prestamoFachada = prestamoFachada;
         _prestamoServicio = prestamoServicio;
         _ejemplarServicio = ejemplarServicio;
         _usuarioServicio = usuarioServicio;
         _detalleServicio = detalleServicio;
-        _routeTokenService = routeTokenService;
         _anulacionFachada = anulacionFachada;
     }
 

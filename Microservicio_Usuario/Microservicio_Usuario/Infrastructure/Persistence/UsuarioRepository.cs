@@ -10,15 +10,12 @@ namespace ServicioUsuario.Infrastructure.Persistence;
 
 public class UsuarioRepository : IRepository<Usuario, int>
 {
-    private readonly IConfiguration? _configuration;
-
     public UsuarioRepository()
     {
     }
 
-    public UsuarioRepository(IConfiguration configuration)
+    public UsuarioRepository(IConfiguration _)
     {
-        _configuration = configuration;
     }
 
     public Usuario? GetByCi(string ci)
