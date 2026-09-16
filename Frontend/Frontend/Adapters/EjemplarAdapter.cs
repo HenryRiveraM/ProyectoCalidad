@@ -16,9 +16,9 @@ public class EjemplarAdapter : IEjemplarServicio
 
     public IEnumerable<EjemplarDto> Select(bool todos = false) => CallGet<List<EjemplarDto>>(todos ? "api/ejemplares?todos=true" : "api/ejemplares") ?? new();
     public EjemplarDto? GetById(int id) => CallGet<EjemplarDto>($"api/ejemplares/{id}");
-    public Result<EjemplarDto> Create(EjemplarDto d) => CallPostR<EjemplarDto>("api/ejemplares", d);
-    public Result<EjemplarDto> Update(EjemplarDto d) => CallPutR<EjemplarDto>($"api/ejemplares/{d.EjemplarId}", d);
-    public Result Delete(EjemplarDto d) => CallDeleteR($"api/ejemplares/{d.EjemplarId}");
+    public Result<EjemplarDto> Create(EjemplarDto dto) => CallPostR<EjemplarDto>("api/ejemplares", dto);
+    public Result<EjemplarDto> Update(EjemplarDto dto) => CallPutR<EjemplarDto>($"api/ejemplares/{dto.EjemplarId}", dto);
+    public Result Delete(EjemplarDto dto) => CallDeleteR($"api/ejemplares/{dto.EjemplarId}");
     public Dictionary<int, string> ObtenerTitulosLibros()
     {
         var libros = CallGet<List<LibroDto>>("api/libros?todos=true") ?? new();
