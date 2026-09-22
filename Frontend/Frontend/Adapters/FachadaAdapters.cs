@@ -127,8 +127,8 @@ public class PrestamoServicioAdapter : IPrestamoServicio
         catch { return new List<PrestamoDto>(); }
     }
 
-    public Result<PrestamoDto> Create(PrestamoDto d) => Result<PrestamoDto>.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
-    public Result<PrestamoDto> Update(PrestamoDto d) => Result<PrestamoDto>.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
+    public Result<PrestamoDto> Create(PrestamoDto dto) => Result<PrestamoDto>.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
+    public Result<PrestamoDto> Update(PrestamoDto dto) => Result<PrestamoDto>.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
 
     public Result Delete(PrestamoDto d)
     {
