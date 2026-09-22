@@ -60,12 +60,12 @@ public class AnulacionFachadaAdapter : IAnulacionFachada
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public Result AnularPrestamo(int id, int? uid, string m)
+    public Result AnularPrestamo(int id, int? uid, string motivo)
     {
         try
         {
             EnsureAuthorizationHeader();
-            var response = _http.PostAsJsonAsync($"api/prestamos/{id}/anular", new { usuarioSesionId = uid, motivo = m }).Result;
+            var response = _http.PostAsJsonAsync($"api/prestamos/{id}/anular", new { usuarioSesionId = uid, motivo }).Result;
             return response.IsSuccessStatusCode
                 ? Result.Success()
                 : Result.Failure(new Error("Anulacion", "Error al anular el préstamo."));
