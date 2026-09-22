@@ -158,7 +158,7 @@ public class PrestamoServicioAdapter : IPrestamoServicio
         catch { return null; }
     }
 
-    public Result ValidarPrestamo(PrestamoDto p) => Result.Success();
+    public Result ValidarPrestamo(PrestamoDto PrestamoDto) => Result.Success();
 
     private void EnsureAuthorizationHeader()
     {
