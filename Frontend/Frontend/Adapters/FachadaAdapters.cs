@@ -130,12 +130,12 @@ public class PrestamoServicioAdapter : IPrestamoServicio
     public Result<PrestamoDto> Create(PrestamoDto dto) => Result<PrestamoDto>.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
     public Result<PrestamoDto> Update(PrestamoDto dto) => Result<PrestamoDto>.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
 
-    public Result Delete(PrestamoDto d)
+    public Result Delete(PrestamoDto dto)
     {
         try
         {
             EnsureAuthorizationHeader();
-            var response = _http.DeleteAsync($"api/prestamos/{d.PrestamoId}").Result;
+            var response = _http.DeleteAsync($"api/prestamos/{dto.PrestamoId}").Result;
             return response.IsSuccessStatusCode
                 ? Result.Success()
                 : Result.Failure(new Error("Prestamo", "Error al eliminar."));
