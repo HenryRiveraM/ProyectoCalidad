@@ -60,12 +60,12 @@ public class AnulacionFachadaAdapter : IAnulacionFachada
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public Result AnularPrestamo(int id, int? usuarioSesionId, string motivo)
+    public Result AnularPrestamo(int prestamoId, int? usuarioSesionId, string motivo)
     {
         try
         {
             EnsureAuthorizationHeader();
-            var response = _http.PostAsJsonAsync($"api/prestamos/{id}/anular", new { usuarioSesionId, motivo }).Result;
+            var response = _http.PostAsJsonAsync($"api/prestamos/{prestamoId}/anular", new { usuarioSesionId, motivo }).Result;
             return response.IsSuccessStatusCode
                 ? Result.Success()
                 : Result.Failure(new Error("Anulacion", "Error al anular el préstamo."));
@@ -100,7 +100,7 @@ public class AnulacionFachadaAdapter : IAnulacionFachada
 
 public class EjemplarDisponibilidadFachadaAdapter : IEjemplarDisponibilidadFachada
 {
-    public Result CambiarDisponibilidad(int id, bool d, int? uid) => Result.Success();
+    public Result CambiarDisponibilidad(int ejemplarId, bool disponible, int? usuarioSesionId) => Result.Success();
 }
 
 public class PrestamoServicioAdapter : IPrestamoServicio
@@ -127,15 +127,15 @@ public class PrestamoServicioAdapter : IPrestamoServicio
         catch { return new List<PrestamoDto>(); }
     }
 
-    public Result<PrestamoDto> Create(PrestamoDto d) => Result<PrestamoDto>.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
-    public Result<PrestamoDto> Update(PrestamoDto d) => Result<PrestamoDto>.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
+    public Result<PrestamoDto> Create(PrestamoDto dto) => Result<PrestamoDto>.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
+    public Result<PrestamoDto> Update(PrestamoDto dto) => Result<PrestamoDto>.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
 
-    public Result Delete(PrestamoDto d)
+    public Result Delete(PrestamoDto dto)
     {
         try
         {
             EnsureAuthorizationHeader();
-            var response = _http.DeleteAsync($"api/prestamos/{d.PrestamoId}").Result;
+            var response = _http.DeleteAsync($"api/prestamos/{dto.PrestamoId}").Result;
             return response.IsSuccessStatusCode
                 ? Result.Success()
                 : Result.Failure(new Error("Prestamo", "Error al eliminar."));
@@ -158,7 +158,7 @@ public class PrestamoServicioAdapter : IPrestamoServicio
         catch { return null; }
     }
 
-    public Result ValidarPrestamo(PrestamoDto p) => Result.Success();
+    public Result ValidarPrestamo(PrestamoDto PrestamoDto) => Result.Success();
 
     private void EnsureAuthorizationHeader()
     {
