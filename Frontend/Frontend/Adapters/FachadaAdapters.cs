@@ -100,7 +100,7 @@ public class AnulacionFachadaAdapter : IAnulacionFachada
 
 public class EjemplarDisponibilidadFachadaAdapter : IEjemplarDisponibilidadFachada
 {
-    public Result CambiarDisponibilidad(int id, bool d, int? uid) => Result.Success();
+    public Result CambiarDisponibilidad(int id, bool d, int? usuarioSesionId) => Result.Success();
 }
 
 public class PrestamoServicioAdapter : IPrestamoServicio
