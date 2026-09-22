@@ -26,16 +26,16 @@ public class PrestamoFachadaAdapter : IPrestamoFachada
             .ToList();
     }
 
-    public Result<int> CrearPrestamoMultiple(int lectorId, IEnumerable<int> ejIds, DateTime f, int? uid = null, string? obs = null) => Result<int>.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
-    public Result<int> CrearPrestamoMultiple(int lectorId, IEnumerable<(int, string?)> d, DateTime f, int? uid = null) => Result<int>.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
-    public Result CrearPrestamo(PrestamoDto p) => Result.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
-    public Result CrearPrestamos(IEnumerable<PrestamoDto> p) => Result.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
-    public int CountPrestamosActivos(int id) => 0;
+    public Result<int> CrearPrestamoMultiple(int lectorId, IEnumerable<int> ejemplarIds, DateTime fechaDevolucionEsperada, int? usuarioSesionId = null, string? observacionesSalida = null) => Result<int>.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
+    public Result<int> CrearPrestamoMultiple(int lectorId, IEnumerable<(int, string?)> detallesEjemplares, DateTime fechaDevolucionEsperada, int? usuarioSesionId = null) => Result<int>.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
+    public Result CrearPrestamo(PrestamoDto PrestamoDto) => Result.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
+    public Result CrearPrestamos(IEnumerable<PrestamoDto> prestamos) => Result.Failure(new Error("NotImpl", "Funcionalidad no implementada."));
+    public int CountPrestamosActivos(int lectorId) => 0;
     public PrestamoDto? ObtenerPrestamoPorId(int id) => null;
     public EjemplarDto? ObtenerEjemplarPorId(int id) => null;
-    public string? ObtenerLabelEjemplar(int id) => null;
-    
-    public UsuarioDto? ObtenerUsuarioPorCi(string ci)
+    public string? ObtenerLabelEjemplar(int ejemplarId) => null;
+
+public UsuarioDto? ObtenerUsuarioPorCi(string ci)
     {
         var usuarios = _usuarioServicio.Select();
         return usuarios.FirstOrDefault(u => u.CI != null && u.CI.Equals(ci, StringComparison.OrdinalIgnoreCase));
@@ -60,12 +60,12 @@ public class AnulacionFachadaAdapter : IAnulacionFachada
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public Result AnularPrestamo(int id, int? uid, string m)
+    public Result AnularPrestamo(int id, int? usuarioSesionId, string motivo)
     {
         try
         {
             EnsureAuthorizationHeader();
-            var response = _http.PostAsJsonAsync($"api/prestamos/{id}/anular", new { usuarioSesionId = uid, motivo = m }).Result;
+            var response = _http.PostAsJsonAsync($"api/prestamos/{id}/anular", new { usuarioSesionId, motivo }).Result;
             return response.IsSuccessStatusCode
                 ? Result.Success()
                 : Result.Failure(new Error("Anulacion", "Error al anular el préstamo."));
