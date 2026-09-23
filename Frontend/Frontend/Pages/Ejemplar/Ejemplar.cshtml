@@ -497,30 +497,14 @@ else
 }
 
             <input type="hidden" id="createLibroIdHidden" name="EjemplarDto.LibroId" value="@createLibroId" />
-            <label class="modal-label">
+            <label class="modal-label" for="createBuscarLibro">
                 Libro<span class="required">*</span>
             </label>
-            <div class="libro-search-wrapper">
-                <input type="text"
-                       id="createBuscarLibro"
-                       class="input-form"
-                       placeholder="Escribe para buscar un libro..."
-                       autocomplete="off"
-                       value="@createLibroTexto" />
-
-                <ul id="createListaLibros" class="libro-dropdown" style="display:none;">
-                    @foreach (var libro in Model.Libros)
-                    {
-                        var editorialTexto = string.IsNullOrWhiteSpace(libro.Editorial) ? "Sin editorial" : libro.Editorial;
-                        <li class="libro-opcion"
-                            data-id="@libro.LibroId"
-                            data-texto="@($"{libro.Titulo} ({editorialTexto})")">
-                            @libro.Titulo <span class="libro-editorial">(@editorialTexto)</span>
-                        </li>
-                    }
-                </ul>
-            </div>
-
+            <input type="text"
+                   id="createBuscarLibro"
+                   class="input-form"
+                   placeholder="Escribe para buscar un libro..."
+                   autocomplete="off" />
             <small class="text-muted" id="createLibroSeleccionadoTexto"></small>
             @if (ViewData.ModelState.ContainsKey("EjemplarDto.LibroId"))
             {
@@ -528,7 +512,7 @@ else
                     @ViewData.ModelState["EjemplarDto.LibroId"]?.Errors.FirstOrDefault()?.ErrorMessage
                 </span>
             }
-            <label class="modal-label">
+            <label class="modal-label" for="createCodigoInventario">
                 Código inventario<span class="required">*</span>
             </label>
                  <div class="codigo-inventario-wrapper">
