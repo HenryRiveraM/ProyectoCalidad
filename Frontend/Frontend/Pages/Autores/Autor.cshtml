@@ -42,6 +42,10 @@
         ? ViewData.ModelState["FechaNacimiento"]?.AttemptedValue ?? ""
         : "";
 
+    string editEstadoConservacion = ViewData.ModelState.ContainsKey("EstadoConservacion")
+        ? ViewData.ModelState["EstadoConservacion"]?.AttemptedValue ?? ""
+        : "";
+
     string createNombres = ViewData.ModelState.ContainsKey("AutorDto.Nombres")
         ? ViewData.ModelState["AutorDto.Nombres"]?.AttemptedValue ?? ""
         : "";
@@ -263,6 +267,21 @@
                   id="error-editFechaNacimiento"
                   style="display:@(!string.IsNullOrWhiteSpace(ErrorCampo("FechaNacimiento")) ? "block" : "none")">
                 @ErrorCampo("FechaNacimiento")
+            </span>
+
+            <label for="editEstadoConservacion">Estado de conservación</label>
+            <select id="editEstadoConservacion" name="EstadoConservacion" class="input-form">
+                <option value="">Seleccione...</option>
+                <option value="Excelente" selected="@(editEstadoConservacion == "Excelente" ? "selected" : null)">Excelente</option>
+                <option value="Muy Bueno" selected="@(editEstadoConservacion == "Muy Bueno" ? "selected" : null)">Muy Bueno</option>
+                <option value="Bueno" selected="@(editEstadoConservacion == "Bueno" ? "selected" : null)">Bueno</option>
+                <option value="Regular" selected="@(editEstadoConservacion == "Regular" ? "selected" : null)">Regular</option>
+                <option value="Malo" selected="@(editEstadoConservacion == "Malo" ? "selected" : null)">Malo</option>
+            </select>
+            <span class="text-error field-error"
+                  id="error-editEstadoConservacion"
+                  style="display:@(!string.IsNullOrWhiteSpace(ErrorCampo("EstadoConservacion")) ? "block" : "none")">
+                @ErrorCampo("EstadoConservacion")
             </span>
 
             <input type="hidden" id="editEstado" name="Estado" value="true" />
