@@ -154,6 +154,7 @@
 
     <div class="filtros-barra">
         <div class="filtro-item filtro-buscar">
+            <label for="buscador-ejemplar" class="sr-only">Buscar ejemplares</label>
             <input id="buscador-ejemplar"
                    type="text"
                    class="input-filtro"
@@ -366,6 +367,7 @@ else
                 </div>
             }
 
+            <label for="editLibroId">Libro</label>
             <select id="editLibroId" name="LibroId" class="input-form" required>
                 <option value="">Seleccione un libro...</option>
                 @foreach (var libro in Model.LibrosTitulos)
@@ -381,6 +383,7 @@ else
                     @ViewData.ModelState["LibroId"]?.Errors.FirstOrDefault()?.ErrorMessage
                 </span>
             }
+                 <label for="editCodigoInventarioNumero">Número de inventario</label>
                  <div class="codigo-inventario-wrapper">
                   <span class="codigo-inventario-prefijo">INV-</span>
                   <input type="text"
@@ -497,7 +500,7 @@ else
 }
 
             <input type="hidden" id="createLibroIdHidden" name="EjemplarDto.LibroId" value="@createLibroId" />
-            <label class="modal-label">
+            <label class="modal-label" for="createBuscarLibro">
                 Libro<span class="required">*</span>
             </label>
             <div class="libro-search-wrapper">
