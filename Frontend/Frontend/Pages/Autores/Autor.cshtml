@@ -42,6 +42,10 @@
         ? ViewData.ModelState["FechaNacimiento"]?.AttemptedValue ?? ""
         : "";
 
+    string editEstadoConservacion = ViewData.ModelState.ContainsKey("EstadoConservacion")
+        ? ViewData.ModelState["EstadoConservacion"]?.AttemptedValue ?? ""
+        : "";
+
     string createNombres = ViewData.ModelState.ContainsKey("AutorDto.Nombres")
         ? ViewData.ModelState["AutorDto.Nombres"]?.AttemptedValue ?? ""
         : "";
@@ -85,6 +89,7 @@
 
     <div class="filtros-barra">
         <div class="filtro-item filtro-buscar">
+            <label for="buscador-autor" class="sr-only">Buscar autores</label>
             <input id="buscador-autor"
                    type="text"
                    class="input-filtro"
@@ -210,6 +215,7 @@
 
             <input type="hidden" id="editToken" name="token" value="@editToken" />
 
+            <label for="editNombres">Nombres</label>
             <input type="text"
                    id="editNombres"
                    name="Nombres"
@@ -222,6 +228,7 @@
                 @ErrorCampo("Nombres")
             </span>
 
+            <label for="editApellidos">Apellidos</label>
             <input type="text"
                    id="editApellidos"
                    name="Apellidos"
@@ -234,6 +241,7 @@
                 @ErrorCampo("Apellidos")
             </span>
 
+            <label for="editNacionalidad">Nacionalidad</label>
             <select id="editNacionalidad" name="Nacionalidad" data-field="editNacionalidad">
                 <option value="">Nacionalidad opcional</option>
                 @foreach (var pais in paises)
@@ -249,6 +257,7 @@
                 @ErrorCampo("Nacionalidad")
             </span>
 
+            <label for="editFechaNacimiento">Fecha de nacimiento</label>
             <input type="date"
                    id="editFechaNacimiento"
                    name="FechaNacimiento"
@@ -258,6 +267,21 @@
                   id="error-editFechaNacimiento"
                   style="display:@(!string.IsNullOrWhiteSpace(ErrorCampo("FechaNacimiento")) ? "block" : "none")">
                 @ErrorCampo("FechaNacimiento")
+            </span>
+
+            <label for="editEstadoConservacion">Estado de conservación</label>
+            <select id="editEstadoConservacion" name="EstadoConservacion" class="input-form">
+                <option value="">Seleccione...</option>
+                <option value="Excelente" selected="@(editEstadoConservacion == "Excelente" ? "selected" : null)">Excelente</option>
+                <option value="Muy Bueno" selected="@(editEstadoConservacion == "Muy Bueno" ? "selected" : null)">Muy Bueno</option>
+                <option value="Bueno" selected="@(editEstadoConservacion == "Bueno" ? "selected" : null)">Bueno</option>
+                <option value="Regular" selected="@(editEstadoConservacion == "Regular" ? "selected" : null)">Regular</option>
+                <option value="Malo" selected="@(editEstadoConservacion == "Malo" ? "selected" : null)">Malo</option>
+            </select>
+            <span class="text-error field-error"
+                  id="error-editEstadoConservacion"
+                  style="display:@(!string.IsNullOrWhiteSpace(ErrorCampo("EstadoConservacion")) ? "block" : "none")">
+                @ErrorCampo("EstadoConservacion")
             </span>
 
             <input type="hidden" id="editEstado" name="Estado" value="true" />
@@ -281,6 +305,7 @@
         <form method="post" asp-page-handler="Crear" id="createAutorForm" novalidate>
             @Html.AntiForgeryToken()
 
+            <label for="createNombres">Nombres</label>
             <input type="text"
                    id="createNombres"
                    name="AutorDto.Nombres"
@@ -293,6 +318,7 @@
                 @ErrorCampo("AutorDto.Nombres")
             </span>
 
+            <label for="createApellidos">Apellidos</label>
             <input type="text"
                    id="createApellidos"
                    name="AutorDto.Apellidos"
@@ -305,6 +331,7 @@
                 @ErrorCampo("AutorDto.Apellidos")
             </span>
 
+            <label for="createNacionalidad">Nacionalidad</label>
             <select id="createNacionalidad"
                     name="AutorDto.Nacionalidad"
                     data-field="createNacionalidad">
@@ -322,6 +349,7 @@
                 @ErrorCampo("AutorDto.Nacionalidad")
             </span>
 
+            <label for="createFechaNacimiento">Fecha de nacimiento</label>
             <input type="date"
                    id="createFechaNacimiento"
                    name="AutorDto.FechaNacimiento"
