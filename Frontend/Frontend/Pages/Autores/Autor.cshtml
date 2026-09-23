@@ -286,6 +286,7 @@
         <form method="post" asp-page-handler="Crear" id="createAutorForm" novalidate>
             @Html.AntiForgeryToken()
 
+            <label for="createNombres">Nombres</label>
             <input type="text"
                    id="createNombres"
                    name="AutorDto.Nombres"
@@ -298,6 +299,7 @@
                 @ErrorCampo("AutorDto.Nombres")
             </span>
 
+            <label for="createApellidos">Apellidos</label>
             <input type="text"
                    id="createApellidos"
                    name="AutorDto.Apellidos"
