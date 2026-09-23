@@ -11,6 +11,7 @@ namespace Frontend.Pages;
 
 public class AutorModel : PageModel
 {
+    private static readonly TimeSpan RegexTimeout = TimeSpan.FromSeconds(1);
     private readonly IAutorServicio _autorServicio;
     private readonly RouteTokenService _routeTokenService;
 
@@ -229,8 +230,8 @@ public class AutorModel : PageModel
         if (string.IsNullOrWhiteSpace(value))
             return false;
 
-        var texto = SepararPalabrasPegadasPorMayuscula(value);
-        var regex = new Regex(@"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$");
+         var texto = SepararPalabrasPegadasPorMayuscula(value);
+         var regex = new Regex(@"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$", RegexOptions.None,RegexTimeout);
 
         if (regex.IsMatch(texto))
             return false;
@@ -285,7 +286,7 @@ public class AutorModel : PageModel
         if (string.IsNullOrWhiteSpace(value))
             return string.Empty;
 
-        return Regex.Replace(value.Trim(), @"\s+", " ");
+        return Regex.Replace(value.Trim(), @"\s+", " ",RegexOptions.None,RegexTimeout);
     }
 
     private static string SepararPalabrasPegadasPorMayuscula(string? value)
@@ -295,7 +296,7 @@ public class AutorModel : PageModel
         if (string.IsNullOrWhiteSpace(texto))
             return string.Empty;
 
-        return Regex.Replace(texto, @"(?<=[a-záéíóúñü])(?=[A-ZÁÉÍÓÚÑÜ])", " ");
+        return Regex.Replace(texto, @"(?<=[a-záéíóúñü])(?=[A-ZÁÉÍÓÚÑÜ])", " ",RegexOptions.None,RegexTimeout);
     }
 
     private static string? LimpiarTextoOpcional(string? value)
