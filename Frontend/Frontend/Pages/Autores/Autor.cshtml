@@ -237,6 +237,7 @@
                 @ErrorCampo("Apellidos")
             </span>
 
+            <label for="editNacionalidad">Nacionalidad</label>
             <select id="editNacionalidad" name="Nacionalidad" data-field="editNacionalidad">
                 <option value="">Nacionalidad opcional</option>
                 @foreach (var pais in paises)
@@ -252,6 +253,7 @@
                 @ErrorCampo("Nacionalidad")
             </span>
 
+            <label for="editFechaNacimiento">Fecha de nacimiento</label>
             <input type="date"
                    id="editFechaNacimiento"
                    name="FechaNacimiento"
@@ -308,6 +310,7 @@
                 @ErrorCampo("AutorDto.Apellidos")
             </span>
 
+            <label for="createNacionalidad">Nacionalidad</label>
             <select id="createNacionalidad"
                     name="AutorDto.Nacionalidad"
                     data-field="createNacionalidad">
@@ -325,6 +328,7 @@
                 @ErrorCampo("AutorDto.Nacionalidad")
             </span>
 
+            <label for="createFechaNacimiento">Fecha de nacimiento</label>
             <input type="date"
                    id="createFechaNacimiento"
                    name="AutorDto.FechaNacimiento"
